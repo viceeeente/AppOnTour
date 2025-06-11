@@ -21,4 +21,13 @@ public class Viaje {
 
     @Column(nullable = false)
     private Double precio;
+
+    @Column(nullable = false)
+    private String destino;
+
+    @Column(nullable = false)
+    private Integer maxPersonas;
+
+    @Column(nullable = false)
+    private String beneficios;
 }
