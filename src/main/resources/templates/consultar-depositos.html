@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Consulta de Depositos</title>
@@ -11,7 +11,7 @@
 
   <section id="curso">
     <h2>Curso</h2>
-    <p></p>
+    <p><strong>Nombre:</strong> <span th:text="${curso.nombre}"></span> </p>
   </section>
 
 </body>

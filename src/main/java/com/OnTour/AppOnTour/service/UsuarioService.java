@@ -14,9 +14,8 @@ public class UsuarioService {
     private UsuarioRepository usuarioRepository;
 
     public Usuario autenticar (String nombre, String password) {
-        return usuarioRepository.findByNombre(nombre)
-                .filter(usuario -> usuario.getPassword().equals(password))
-                .orElse(null);
+        return usuarioRepository.findByNombreAndPassword(nombre,password).orElse(null);
+
     }
 
 

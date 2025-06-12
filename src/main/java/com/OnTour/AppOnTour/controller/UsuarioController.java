@@ -28,11 +28,11 @@ public class UsuarioController {
         Usuario autenticado = usuarioService.autenticar(usuario.getNombre(), usuario.getPassword());
 
         if (autenticado == null) {
-            System.out.println("❌ Usuario no autenticado: " + usuario.getNombre());
+            System.out.println("Usuario no autenticado: " + usuario.getNombre());
             model.addAttribute("error", "Credenciales incorrectas");
             return "login";
         } else {
-            System.out.println("✅ Usuario autenticado: " + autenticado.getNombre());
+            System.out.println("Usuario autenticado: " + autenticado.getNombre());
         }
 
         return "home";

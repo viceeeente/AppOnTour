@@ -1,21 +1,26 @@
 package com.OnTour.AppOnTour.controller;
 
+import com.OnTour.AppOnTour.model.Curso;
+import com.OnTour.AppOnTour.service.CursoService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/home")
+@RequestMapping("/")
 public class MenuController {
 
-    @GetMapping
-    public String mostrarMenu() {
-        return "home";
-    }
+    @Autowired
+    private CursoService cursoService;
 
-    @GetMapping("/consultar-depositos")
-    public String consultarDepositos() {
-        return "consultar-depositos";
+    @GetMapping
+    public String mostrarMenu(Model model) {
+        Curso curso = cursoService.obtenerCursoPorId(1L);
+        System.out.println("Curso obtenido: "+curso);
+        model.addAttribute("curso",curso);
+        return "home";
     }
 
     @GetMapping("/reistrar-contrato")
