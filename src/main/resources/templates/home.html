@@ -1,11 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>OnTour</title>
+    <title>Menú Principal</title>
 </head>
 <body>
-  <h2>Hola chorombo!</h2>
-
+<h2>Menú</h2>
+<ul>
+    <li><a th:href="@{/consultar-depositos}">Consultar Depósitos de Curso</a></li>
+    <li><a th:href="@{/registrar-contrato}">Registrar Contrato</a></li>
+    <li><a th:href="@{/publicar-informacion}">Publicar Información</a></li>
+    <li><a th:href="@{/generar-reporte}">Generar Reporte de Avances</a></li>
+</ul>
 </body>
 </html>
