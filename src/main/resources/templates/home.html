@@ -5,12 +5,32 @@
     <title>Menú Principal</title>
 </head>
 <body>
-<h2>Menú</h2>
-<ul>
-    <li><a th:href="@{/consultar-depositos}">Consultar Depósitos de Curso</a></li>
-    <li><a th:href="@{/registrar-contrato}">Registrar Contrato</a></li>
-    <li><a th:href="@{/publicar-informacion}">Publicar Información</a></li>
-    <li><a th:href="@{/generar-reporte}">Generar Reporte de Avances</a></li>
-</ul>
+
+<div class="menu-container">
+    <h2>Menú</h2>
+
+
+    <div class="menu-options">
+        <ul>
+            <div class="consultar-depositos">
+                <li><a th:href="@{/consultar-depositos}">Consultar Depósitos de Curso</a></li>
+            </div>
+
+            <div class="registrar-contrato">
+                <li><a th:href="@{/registrar-contrato}">Registrar Contrato</a></li>
+            </div>
+
+            <div class="publicar-informacion">
+                <li><a th:href="@{/publicar-informacion}">Publicar Información</a></li>
+            </div>
+
+            <div class="generar--reporte">
+                <li><a th:href="@{/generar-reporte}">Generar Reporte de Avances</a></li>
+            </div>
+
+        </ul>
+    </div>
+</div>
+
 </body>
 </html>
