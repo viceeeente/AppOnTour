@@ -17,4 +17,7 @@ public class ViajeGrupal extends Viaje{
 
     @Column(nullable = false)
     private Boolean incluyeGuia;
+
+    @Column(nullable = false)
+    private String transportePrivado;
 }

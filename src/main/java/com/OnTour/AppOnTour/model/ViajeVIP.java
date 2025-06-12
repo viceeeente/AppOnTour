@@ -17,4 +17,10 @@ public class ViajeVIP extends Viaje{
 
     @Column(nullable = false)
     private Boolean incluyeGuia;
+
+    @Column (nullable = false)
+    private String beneficiosExclusivos;
+
+    @Column (nullable = false)
+    private String transportePrivado;
 }
