@@ -24,6 +24,9 @@ public class Deposito {
     @Column(nullable = false)
     private LocalDate fecha;
 
+    @Column(nullable = false)
+    private String representante;
+
     @ManyToOne
     @JoinColumn(name = "curso_id")
     private Curso curso;
