@@ -5,13 +5,26 @@
     <title>Consulta de Depositos</title>
 </head>
 <body>
+<a th:href="@{/home}">Volver</a>
   <header>
     <h1>Estado de Cuenta</h1>
   </header>
 
   <section id="curso">
     <h2>Curso</h2>
-    <p><strong>Nombre:</strong> <span th:text="${curso.nombre}"></span> </p>
+    <p><span th:text="${curso.nombre}"></span> </p>
+  </section>
+
+  <section id="dinero">
+      <h2>Montos</h2>
+      <p><strong>Saldo Curso:</strong> <span th:text="${curso.saldoCurso}"></span></p>
+  </section>
+
+  <section id="movimientos">
+      <h2>Movimientos recientes</h2>
+      <p><strong>Monto: </strong></p>
+      <p><strong>Fecha: </strong></p>
+      <p><strong>Representante: </strong></p>
   </section>
 
 </body>
