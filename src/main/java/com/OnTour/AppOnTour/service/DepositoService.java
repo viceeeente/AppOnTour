@@ -15,7 +15,7 @@ public class DepositoService {
     @Autowired
     private DepositoRepository depositoRepository;
 
-    public void guardarDeposito(Curso curso, Integer monto, String representante) {
+    public void guardarDeposito(Curso curso, Integer monto, String representante, LocalDate fecha) {
         Deposito deposito = new Deposito();
         deposito.setCurso(curso);
         deposito.setMonto(monto);

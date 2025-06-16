@@ -13,6 +13,7 @@
   <section id="curso">
     <h2>Curso</h2>
     <p><span th:text="${curso.nombre}"></span> </p>
+    <p>Representante: <span th:text="${curso.nombreRepresentante}"></span></p>
   </section>
 
   <section id="dinero">
@@ -25,6 +26,10 @@
       <p><strong>Monto: </strong></p>
       <p><strong>Fecha: </strong></p>
       <p><strong>Representante: </strong></p>
+  </section>
+
+  <section id="ingresarDinero">
+    <button id="toggleMenuBtn" onclick="toggleMenu()">Ingresar Dinero</button>
   </section>
 
 </body>
