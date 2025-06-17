@@ -32,7 +32,7 @@
     <button onclick="document.getElementById('depositoContainer').style.display='block'">Ingresar Dinero</button>
 
     <div id="depositoContainer" style="display: none;">
-        <form th:action="@{'/ingresar/' + ${curso.id}}" method="post">
+        <form id="depositoForm" th:action="@{'/consultar-depositos/' + ${curso.id}}" method="post">
             <label for="montoInput">Monto:</label>
             <input type="text" id="montoInput" name="monto" required>
 

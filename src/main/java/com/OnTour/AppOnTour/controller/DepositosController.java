@@ -32,7 +32,7 @@ public class DepositosController {
     @Autowired
     private CursoRepository cursoRepository;
 
-    @GetMapping
+
     public String redirigirDepositos(){
         return "redirect/";
     }
@@ -47,13 +47,15 @@ public class DepositosController {
         return "consultar-depositos";
     }
 
-    @PostMapping("/ingresar/{cursoId}")
+    @PostMapping("/{cursoId}")
     public String registrarDeposito (
             @PathVariable Long cursoId,
             @RequestParam Integer monto,
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fecha,
             @RequestParam String representante,
             Model model) {
+
+        System.out.println("Recibiendo deposito para curso ID: " + cursoId);
 
         depositoService.guardarDeposito(cursoId,monto,fecha, representante);
 
@@ -63,6 +65,6 @@ public class DepositosController {
         model.addAttribute("curso",curso);
         model.addAttribute("depositos",depositoRepository.findByCursoOrderByFechaDesc(curso));
 
-        return "consultar-depositos";
+        return "redirect:/consultar-depositos/" + cursoId;
     }
 }
