@@ -30,7 +30,43 @@
 
   <section id="ingresarDinero">
     <button id="toggleMenuBtn" onclick="toggleMenu()">Ingresar Dinero</button>
+      <div id="depositoContainer" style="display: none;">
+          <form id="depositoForm" th:action="@{'/consultar-depositos/' + ${curso.id}}" method="post">
+
+              <label for="montoInput">Monto:</label>
+              <input type="text" id="montoInput" name="monto" required>
+
+              <label for="fechaInput">Fecha:</label>
+              <input type="date" id="fechaInput" name="fecha" th:value="${#dates.format(#dates.createNow(),'yyyy-MM-dd')}" readonly><br>
+
+              <label for="representanteInput">Representante:</label>
+              <input type="text" id="representanteInput" name="representante" required><br>
+
+              <button type="submit">Confirmar Deposito</button>
+              <button type="button" onclick="toggleMenu()">Cancelar</button>
+
+          </form>
+      </div>
+
   </section>
+
+<script>
+    document.getElementById("depositoForm").addEventListener("submit", function(event) {
+        event.preventDefault(); // Evita la recarga de la página
+
+        var formData = new FormData(this);
+
+        fetch("/consultar-depositos/1", {
+            method: "POST",
+            body: formData
+        })
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById("depositoContainer").style.display = "none";
+            location.reload();
+        });
+    });
+</script>
 
 </body>
 </html>

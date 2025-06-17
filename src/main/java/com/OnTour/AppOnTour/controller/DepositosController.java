@@ -1,6 +1,8 @@
 package com.OnTour.AppOnTour.controller;
 
 import com.OnTour.AppOnTour.model.Curso;
+import com.OnTour.AppOnTour.repository.CursoRepository;
+import com.OnTour.AppOnTour.repository.DepositoRepository;
 import com.OnTour.AppOnTour.service.CursoService;
 import com.OnTour.AppOnTour.service.DepositoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 
-import static com.fasterxml.jackson.databind.type.LogicalType.DateTime;
 
 @Controller
 @RequestMapping("/consultar-depositos")
@@ -21,7 +22,13 @@ public class DepositosController {
     private CursoService cursoService;
 
     @Autowired
+    private DepositoRepository depositoRepository;
+
+    @Autowired
     private DepositoService depositoService;
+
+    @Autowired
+    private CursoRepository cursoRepository;
 
     @GetMapping
     public String redirigirDepositos(){
@@ -38,20 +45,19 @@ public class DepositosController {
         return "consultar-depositos";
     }
 
-    @PostMapping("/ingresar/{id}")
+    @PostMapping("/ingresar/{cursoId}")
     public String registrarDeposito (
-            @PathVariable Long id,
+            @PathVariable Long cursoId,
             @RequestParam Integer monto,
-            @RequestParam @DateTimeFormat(iso=DateTimeFormat.ISO.DATE) LocalDate fecha,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fecha,
             @RequestParam String representante,
-            Model model
-    ) {
-        Curso curso = cursoService.obtenerCursoPorId(id);
-        if(curso != null) {
-            depositoService.guardarDeposito(curso, monto ,representante, fecha );
-        }
+            Model model) {
+        depositoService.guardarDeposito(cursoId,monto,fecha, representante);
+
+        Curso curso = cursoRepository.findById(cursoId).orElse(null);
         model.addAttribute("curso",curso);
-        model.addAttribute("depositos",depositoService.listarDepositosPorCurso(curso));
+        model.addAttribute("depositos",depositoRepository.findByCursoOrderByFechaDesc(curso));
+
         return "consultar-depositos";
     }
 }
