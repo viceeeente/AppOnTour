@@ -21,12 +21,19 @@
       <p><strong>Saldo Curso:</strong> <span th:text="${curso.saldoCurso}"></span></p>
   </section>
 
-  <section id="movimientos">
-      <h2>Movimientos recientes</h2>
-      <p><strong>Monto: </strong></p>
-      <p><strong>Fecha: </strong></p>
-      <p><strong>Representante: </strong></p>
-  </section>
+<section id="movimientos">
+    <h2>Último Depósito</h2>
+
+    <th:block th:if="${ultimoDeposito != null}">
+        <p><strong>Monto:</strong> <span th:text="${ultimoDeposito.monto}"></span></p>
+        <p><strong>Fecha:</strong> <span th:text="${#dates.format(ultimoDeposito.fecha, 'yyyy-MM-dd')}"></span></p>
+        <p><strong>Representante:</strong> <span th:text="${ultimoDeposito.representante}"></span></p>
+    </th:block>
+
+    <th:block th:if="${ultimoDeposito == null}">
+        <p>Último depósito no encontrado en la vista.</p>
+    </th:block>
+</section>
 
 <section id="ingresarDinero">
     <button onclick="document.getElementById('depositoContainer').style.display='block'">Ingresar Dinero</button>

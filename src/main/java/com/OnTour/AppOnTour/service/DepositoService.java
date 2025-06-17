@@ -19,13 +19,9 @@ public class DepositoService {
     @Autowired
     private CursoRepository cursoRepository;
 
-    public void guardarDeposito(Long cursoId, Integer monto, LocalDate fecha, String representante) {
-        System.out.println("➡️ Ejecutando guardarDeposito para curso ID: " + cursoId);
-
+    public Deposito guardarDeposito(Long cursoId, Integer monto, LocalDate fecha, String representante) {
         Curso curso = cursoRepository.findById(cursoId)
                 .orElseThrow(() -> new RuntimeException("Curso no encontrado"));
-
-        System.out.println("📌 Curso encontrado: " + curso.getNombre() + " - Saldo actual: " + curso.getSaldoCurso());
 
         Deposito deposito = new Deposito();
         deposito.setCurso(curso);
@@ -35,14 +31,10 @@ public class DepositoService {
 
         depositoRepository.save(deposito);
 
-        if (curso.getSaldoCurso() == null) {
-            curso.setSaldoCurso(0);
-        }
-
-        curso.setSaldoCurso(curso.getSaldoCurso() + monto);
+        curso.setSaldoCurso((curso.getSaldoCurso() == null ? 0 : curso.getSaldoCurso()) + monto);
         cursoRepository.save(curso);
 
-        System.out.println("✅ Saldo actualizado: " + curso.getSaldoCurso());
+        return deposito;
     }
 
     public List<Deposito> listarDepositosPorCurso(Curso curso) {

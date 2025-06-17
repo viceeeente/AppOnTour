@@ -48,23 +48,27 @@ public class DepositosController {
     }
 
     @PostMapping("/{cursoId}")
-    public String registrarDeposito (
-            @PathVariable Long cursoId,
-            @RequestParam Integer monto,
-            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fecha,
-            @RequestParam String representante,
-            Model model) {
+    public String registrarDeposito(@PathVariable Long cursoId,
+                                    @RequestParam Integer monto,
+                                    @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fecha,
+                                    @RequestParam String representante,
+                                    Model model) {
 
-        System.out.println("Recibiendo deposito para curso ID: " + cursoId);
+        System.out.println("➡️ Registrando depósito para curso ID: " + cursoId);
 
-        depositoService.guardarDeposito(cursoId,monto,fecha, representante);
+        depositoService.guardarDeposito(cursoId, monto, fecha, representante);
 
-        Curso curso = cursoRepository.findById(cursoId).orElse(null);
+        Curso curso = cursoRepository.findById(cursoId).orElseThrow(() -> new RuntimeException("Curso no encontrado"));
         List<Deposito> depositos = depositoRepository.findByCursoOrderByFechaDesc(curso);
 
-        model.addAttribute("curso",curso);
-        model.addAttribute("depositos",depositoRepository.findByCursoOrderByFechaDesc(curso));
+        // Obtener el último depósito
+        Deposito ultimoDeposito = depositos.isEmpty() ? null : depositos.get(0);
+        model.addAttribute("curso", curso);
+        model.addAttribute("depositos", depositos);
+        model.addAttribute("ultimoDeposito", ultimoDeposito);
 
-        return "redirect:/consultar-depositos/" + cursoId;
+        System.out.println("✅ Último depósito enviado: " + (ultimoDeposito != null ? ultimoDeposito.getMonto() : "No hay depósitos"));
+
+        return "consultar-depositos";
     }
 }
