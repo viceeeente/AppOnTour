@@ -20,7 +20,8 @@ public class DepositoService {
     private CursoRepository cursoRepository;
 
     public void guardarDeposito(Long cursoId, Integer monto, LocalDate fecha, String representante) {
-        Curso curso = cursoRepository.findById(cursoId).orElseThrow(()-> new RuntimeException("Curso no encontrado"));
+        Curso curso = cursoRepository.findById(cursoId)
+                .orElseThrow(() -> new IllegalArgumentException("Curso no encontrado con ID: " + cursoId));
 
         Deposito deposito = new Deposito();
         deposito.setCurso(curso);
@@ -30,12 +31,18 @@ public class DepositoService {
 
         depositoRepository.save(deposito);
 
-        //estas dos lineas son las que se encargan de ir actualizando el monto del curso
-        curso.setSaldoCurso(curso.getSaldoCurso()+monto);
+        // Actualizar saldo del curso de manera segura
+        curso.setSaldoCurso(curso.getSaldoCurso() + monto);
         cursoRepository.save(curso);
     }
 
     public List<Deposito> listarDepositosPorCurso(Curso curso) {
-        return depositoRepository.findByCursoOrderByFechaDesc(curso);
+        List<Deposito> depositos = depositoRepository.findByCursoOrderByFechaDesc(curso);
+
+        if (depositos.isEmpty()) {
+            throw new IllegalArgumentException("No hay depósitos registrados para este curso");
+        }
+
+        return depositos;
     }
 }
